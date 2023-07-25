@@ -133,7 +133,7 @@ router.post("/sendpasswordlink", async (req, res) => {
 
         // token generate for reset password
         const token = jwt.sign({ _id: userfind._id }, keysecret, {
-            expiresIn: "1d"
+            expiresIn: "600s"
         });
 
         const setusertoken = await userdb.findByIdAndUpdate({ _id: userfind._id }, { verifytoken: token }, { new: true });
@@ -144,7 +144,7 @@ router.post("/sendpasswordlink", async (req, res) => {
                 from: "sahumohit1437@gmail.com",
                 to: email,
                 subject: "Sending Email for password reset",
-                text: `This Link Valid For 10 MINUTES http://localhost:3000/forgotpassword/${userfind.id}/${setusertoken.verifytoken}`
+                text: `This Link Valid For 10 MINUTES https://mernauthenticationjwttoken.netlify.app/forgotpassword/${userfind.id}/${setusertoken.verifytoken}`
             }
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
