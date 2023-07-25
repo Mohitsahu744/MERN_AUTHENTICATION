@@ -6,7 +6,7 @@ const authenticate = require("../middleware/authenticate")
 const nodemailer = require("nodemailer");
 const jwt = require("jsonwebtoken")
 const keysecret = "kuqwertyfgbhsdmktglshyonvfjypsgy"
-
+const uiserver = 'https://mernauthenticationjwttoken.netlify.app';
 //email config
 const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -144,7 +144,7 @@ router.post("/sendpasswordlink", async (req, res) => {
                 from: "sahumohit1437@gmail.com",
                 to: email,
                 subject: "Sending Email for password reset",
-                text: `This Link Valid For 10 MINUTES https://mernauthenticationjwttoken.netlify.app/forgotpassword/${userfind.id}/${setusertoken.verifytoken}`
+                text: `This Link Valid For 10 MINUTES ${uiserver}/forgotpassword/${userfind.id}/${setusertoken.verifytoken}`
             }
             transporter.sendMail(mailOptions, (error, info) => {
                 if (error) {
